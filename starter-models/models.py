@@ -4,7 +4,7 @@ from django.contrib.auth.models import User
 from django.db.models.signals import post_save
 from django.dispatch import receiver
 
-# Запись на странице пользователя
+
 class Post(models.Model):
     author = models.ForeignKey('auth.User', on_delete=models.CASCADE)
     title = models.CharField(max_length=200, blank=True, null=True)
@@ -21,7 +21,6 @@ class Post(models.Model):
     def __str__(self):
         return self.title
 
-# Модель профиля пользователя
 class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     name = models.TextField(max_length=150, blank=True)
@@ -38,31 +37,31 @@ def create_user_profile(sender, instance, created, **kwargs):
 def save_user_profile(sender, instance, **kwargs):
     instance.profile.save()
 
-# #Вещество
-# class Substance(models.Model):
-#     #Название
-#     name = models.CharField(max_length=30)
-#     #Химическая формула
-#     chemical_formula = models.CharField(max_length=30, blank=True)
+#Вещество
+class Substance(models.Model):
+    #Название
+    name = models.CharField(max_length=30)
+    #Химическая формула
+    chemical_formula = models.CharField(max_length=30, blank=True)
 
-#     def __str__(self):
-#         return "%s %s" % (self.name, self.chemical_formula)
+    def __str__(self):
+        return "%s %s" % (self.name, self.chemical_formula)
 
-#     class Meta:
-#         verbose_name = 'Вещество'
-#         verbose_name_plural = 'Вещества'
+    class Meta:
+        verbose_name = 'Вещество'
+        verbose_name_plural = 'Вещества'
 
-# #Таблицы физических свойств криопродуктов
+#Таблицы физических свойств криопродуктов
 
-# #Таблица 1.1
-# #Усредненный состав сухого воздуха [31]
-# class ACDA(models.Model):
-#     #Компонент
-#     component = models.ForeignKey(Substance, on_delete=models.CASCADE)
-#     #Химическая формула
-#     chemical_formula = models.CharField(max_length=30, blank=True)
-#     #Объемная доля компонента в воздухе, %
-#     cvf = models.CharField(max_length=100)
-#     #Массовая доля компонента в воздухе, %
-#     cmf = models.CharField(max_length=100)
+#Таблица 1.1
+#Усредненный состав сухого воздуха [31]
+class ACDA(models.Model):
+    #Компонент
+    component = models.ForeignKey(Substance, on_delete=models.CASCADE)
+    #Химическая формула
+    chemical_formula = models.CharField(max_length=30, blank=True)
+    #Объемная доля компонента в воздухе, %
+    cvf = models.CharField(max_length=100)
+    #Массовая доля компонента в воздухе, %
+    cmf = models.CharField(max_length=100)
 

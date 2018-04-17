@@ -20,4 +20,8 @@ from django.conf.urls import include
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('blog.urls')),
+    # Теплофизические свойства криопродуктов
+    path('t-prop', include('thermophysical_properties.urls')),
+    # Физические свойства криопродуктов
+    path('p-prop', include('physical_properties.urls')),
 ]

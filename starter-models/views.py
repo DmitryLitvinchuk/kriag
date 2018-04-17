@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect
 from django.utils import timezone
-from .models import *
+from .models import Post, User, Profile, ACDA
 from django.views.generic.edit import FormView
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 from django.http import HttpResponseRedirect
@@ -10,23 +10,19 @@ from django.contrib.auth.decorators import login_required
 from django.db import transaction
 from django import forms
 from django.contrib import messages
-from .forms import *
+from .forms import ProfileForm, PostForm, UserForm
 
 def post_list(request):
     posts = Post.objects.filter(published_date__lte=timezone.now()).order_by('published_date')
     return render(request, 'blog/post_list.html', {'posts': posts})
 
-def main_page(request):
-    return render(request, 'blog/main.html')
-
-
-# """
-# Отображение таблицы 1.1
-# Усредненный состав воздуха
-# """
-# def acdas_table(request):
-#     acdas = ACDA.objects.all()
-#     return render(request, 'blog/acdas_table.html', {'acdas': acdas})
+"""
+Отображение таблицы 1.1
+Усредненный состав воздуха
+"""
+def acdas_table(request):
+    acdas = ACDA.objects.all()
+    return render(request, 'blog/acdas_table.html', {'acdas': acdas})
 
 
 class RegisterFormView(FormView):

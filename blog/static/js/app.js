@@ -3,6 +3,9 @@
  *  Author     : redstar
  *  Description: Core script to handle the entire theme and core functions
  *
+ <script async defer src="https://maps.googleapis.com/maps/api/js?key=YOUR_API_KEY&callback=initMap"
+  type="text/javascript"></script>
+ AIzaSyCu-AVp8clj4CNcJ1X-iMBQ9jKHwlhduvU
  **/
 var App = function() {
 
