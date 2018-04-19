@@ -1,0 +1,41 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<!-- start new student list -->
+<div class="row">
+    <div class="col-md-12 col-sm-12">
+        <div class="card  card-box">
+            <div class="card-head">
+                <header>Таблица веществ и их химических формул</header>
+                <div class="tools">
+                    <a class="fa fa-repeat btn-color box-refresh" href="javascript:;"></a>
+                    <a class="t-collapse btn-color fa fa-chevron-down" href="javascript:;"></a>
+                    <a class="t-close btn-color fa fa-times" href="javascript:;"></a>
+                </div>
+            </div>
+            <div class="card-body ">
+              <div class="table-wrap">
+                    <div class="table-responsive">
+                        <table class="table display product-overview mb-30" id="support_table">
+                            <thead>
+                                <tr>
+                                    <th>Название</th>
+                                    <th>Химическая формула</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for substance in substances %}
+                                <tr>
+                                    <td>{{ substance.name }}</td>
+                                    <td>{{ substance.chemical_formula }}</td>
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>  
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

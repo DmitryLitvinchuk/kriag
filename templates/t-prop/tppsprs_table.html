@@ -1,0 +1,59 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<!-- start new student list -->
+<div class="row">
+    <div class="col-md-12 col-sm-12">
+        <div class="card  card-box">
+            <div class="card-head">
+                <header>Таблица теплофизических свойств веществ в однофазной области</header>
+                <div class="tools">
+                    <a class="fa fa-repeat btn-color box-refresh" href="javascript:;"></a>
+                    <a class="t-collapse btn-color fa fa-chevron-down" href="javascript:;"></a>
+                    <a class="t-close btn-color fa fa-times" href="javascript:;"></a>
+                </div>
+            </div>
+            <div class="card-body ">
+              <div class="table-wrap">
+                    <div class="table-responsive">
+                        <table class="table display product-overview mb-30" id="support_table">
+                            <thead>
+                                <tr>
+                                    <th>Вещество</th>
+                                    <th>Температура</th>
+                                    <th>Давление</th>
+                                    <th>Плотность</th>
+                                    <th>Энтальпия</th>
+                                    <th>Энтропия</th>
+                                    <th>Динамическая вязкость</th>
+                                    <th>Теплопроводность</th>
+                                    <th>Изобарная теплоемкость</th>
+                                    <th>Изохорная теплоемкость</th>
+                                    <th>Критерий Прандтля</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for TPPSPR in TPPSPRs %}
+                                <tr>
+                                    <td>{{ TPPSPR.substance.name }}</td>
+                                    <td>{{ TPPSPR.temperature }}</td>
+                                    <td>{{ TPPSPR.pressure }}</td>
+                                    <td>{{ TPPSPR.density }}</td>
+                                    <td>{{ TPPSPR.enthalpy }}</td>
+                                    <td>{{ TPPSPR.entropy }}</td>
+                                    <td>{{ TPPSPR.DV }}</td>
+                                    <td>{{ TPPSPR.TC }}</td>
+                                    <td>{{ TPPSPR.IbHC }}</td>
+                                    <td>{{ TPPSPR.IhHC }}</td>
+                                    <td>{{ TPPSPR.CP }}</td>
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>  
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
