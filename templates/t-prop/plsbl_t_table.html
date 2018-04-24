@@ -6,7 +6,7 @@
     <div class="col-md-12 col-sm-12">
         <div class="card  card-box">
             <div class="card-head">
-                <header>Таблица теплофизических свойств веществ в однофазной области</header>
+                <header>Свойства жидкого вещества на линии кипения (по температурам)</header>
                 <div class="tools">
                     <a class="fa fa-repeat btn-color box-refresh" href="javascript:;"></a>
                     <a class="t-collapse btn-color fa fa-chevron-down" href="javascript:;"></a>
@@ -24,28 +24,24 @@
                                     <th>Давление</th>
                                     <th>Плотность</th>
                                     <th>Энтальпия</th>
+                                    <th>Теплота испарения</th>
                                     <th>Энтропия</th>
                                     <th>Динамическая вязкость</th>
                                     <th>Теплопроводность</th>
-                                    <th>Изобарная теплоемкость</th>
-                                    <th>Изохорная теплоемкость</th>
-                                    <th>Критерий Прандтля</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                {% for TPPSPR in TPPSPRs %}
+                                {% for PLSBL_T in PLSBL_Ts %}
                                 <tr>
-                                    <td>{{ TPPSPR.substance.name }}</td>
-                                    <td>{{ TPPSPR.temperature }}</td>
-                                    <td>{{ TPPSPR.pressure }}</td>
-                                    <td>{{ TPPSPR.density }}</td>
-                                    <td>{{ TPPSPR.enthalpy }}</td>
-                                    <td>{{ TPPSPR.entropy }}</td>
-                                    <td>{{ TPPSPR.DV }}</td>
-                                    <td>{{ TPPSPR.TC }}</td>
-                                    <td>{{ TPPSPR.IbHC }}</td>
-                                    <td>{{ TPPSPR.IhHC }}</td>
-                                    <td>{{ TPPSPR.CP }}</td>
+                                    <td>{{ PLSBL_T.substance.name }}</td>
+                                    <td>{{ PLSBL_T.temperature }}</td>
+                                    <td>{{ PLSBL_T.pressure }}</td>
+                                    <td>{{ PLSBL_T.density }}</td>
+                                    <td>{{ PLSBL_T.enthalpy }}</td>
+                                    <td>{{ PLSBL_T.HEBP }}</td>
+                                    <td>{{ PLSBL_T.entropy }}</td>
+                                    <td>{{ PLSBL_T.DV }}</td>
+                                    <td>{{ PLSBL_T.TC }}</td>
                                 </tr>
                                 {% endfor %}
                             </tbody>

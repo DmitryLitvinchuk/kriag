@@ -16,9 +16,14 @@ from .models import *
 #     posts = Post.objects.filter(published_date__lte=timezone.now()).order_by('published_date')
 #     return render(request, 'blog/post_list.html', {'posts': posts})
 
-"""
-Отображение таблицы с веществами
-"""
-def TPPSPR_table(request):
-    TPPSPRs = TPPSPR.objects.filter(substance__id=2)
+#Таблица x.1 Свойства жидких веществ
+def PLSBL_T_table(request, substance_id):
+	# В таблице отбираем значения с substance_id равным переданному значению
+    PLSBL_Ts = PLSBL_T.objects.filter(substance=substance_id)
+    return render(request, 't-prop/plsbl_t_table.html', {'PLSBL_Ts': PLSBL_Ts})
+
+#Таблица x.5 Теплофоизические и переносные свойства веществ в однофазной области
+def TPPSPR_table(request, substance_id):
+	# В таблице отбираем значения с substance_id равным переданному значению
+    TPPSPRs = TPPSPR.objects.filter(substance=substance_id)
     return render(request, 't-prop/tppsprs_table.html', {'TPPSPRs': TPPSPRs})
