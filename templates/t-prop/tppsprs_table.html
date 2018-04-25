@@ -6,17 +6,21 @@
     <div class="col-md-12 col-sm-12">
         <div class="card  card-box">
             <div class="card-head">
-                <header>Таблица теплофизических свойств веществ в однофазной области</header>
-                <div class="tools">
-                    <a class="fa fa-repeat btn-color box-refresh" href="javascript:;"></a>
-                    <a class="t-collapse btn-color fa fa-chevron-down" href="javascript:;"></a>
-                    <a class="t-close btn-color fa fa-times" href="javascript:;"></a>
+                <header style="line-height: 25px;">{{ header }}</header>
+            </div>
+            <div class="card-body ">
+                <div class="row">
+                    <div class="col-md-12">
+                        {% for i in p %}
+                            <a href="{% url 'TPPSPR_table_pressure' substance_id=substance.id pressure=i %}" class="btn blue-bgcolor btn-outline btn-circle m-b-10">{{ i }} МПа</a>
+                        {% endfor %}
+                    </div>
                 </div>
             </div>
             <div class="card-body ">
               <div class="table-wrap">
                     <div class="table-responsive">
-                        <table class="table display product-overview mb-30" id="support_table">
+                        <table class="table table-striped display product-overview mb-30" id="support_table">
                             <thead>
                                 <tr>
                                     <th>Вещество</th>
@@ -36,8 +40,8 @@
                                 {% for TPPSPR in TPPSPRs %}
                                 <tr>
                                     <td>{{ TPPSPR.substance.name }}</td>
-                                    <td>{{ TPPSPR.temperature }}</td>
                                     <td>{{ TPPSPR.pressure }}</td>
+                                    <td>{{ TPPSPR.temperature }}</td>
                                     <td>{{ TPPSPR.density }}</td>
                                     <td>{{ TPPSPR.enthalpy }}</td>
                                     <td>{{ TPPSPR.entropy }}</td>

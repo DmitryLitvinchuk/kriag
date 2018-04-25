@@ -31,17 +31,17 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                {% for PLSBL_P in PLSBL_Ps %}
+                                {% for PLSBL_T in PLSBL_Ts %}
                                 <tr>
-                                    <td>{{ PLSBL_P.substance.name }}</td>
-                                    <td>{{ PLSBL_P.temperature }}</td>
-                                    <td>{{ PLSBL_P.pressure }}</td>
-                                    <td>{{ PLSBL_P.density }}</td>
-                                    <td>{{ PLSBL_P.enthalpy }}</td>
-                                    <td>{{ PLSBL_P.HEBP }}</td>
-                                    <td>{{ PLSBL_P.entropy }}</td>
-                                    <td>{{ PLSBL_P.DV }}</td>
-                                    <td>{{ PLSBL_P.TC }}</td>
+                                    <td>{{ PLSBL_T.substance.name }}</td>
+                                    <td>{{ PLSBL_T.temperature }}</td>
+                                    <td>{{ PLSBL_T.pressure }}</td>
+                                    <td>{{ PLSBL_T.density }}</td>
+                                    <td>{{ PLSBL_T.enthalpy }}</td>
+                                    <td>{{ PLSBL_T.HEBP }}</td>
+                                    <td>{{ PLSBL_T.entropy }}</td>
+                                    <td>{{ PLSBL_T.DV }}</td>
+                                    <td>{{ PLSBL_T.TC }}</td>
                                 </tr>
                                 {% endfor %}
                             </tbody>

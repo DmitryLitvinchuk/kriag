@@ -1,6 +1,7 @@
 from django.shortcuts import render, redirect
 from django.utils import timezone
 from .models import *
+from decimal import Decimal
 # from django.views.generic.edit import FormView
 # from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 # from django.http import HttpResponseRedirect
@@ -16,14 +17,52 @@ from .models import *
 #     posts = Post.objects.filter(published_date__lte=timezone.now()).order_by('published_date')
 #     return render(request, 'blog/post_list.html', {'posts': posts})
 
-#Таблица x.1 Свойства жидких веществ
+#Таблица x.1 Свойства жидкого вещества на линии кипения (по температурам)
 def PLSBL_T_table(request, substance_id):
 	# В таблице отбираем значения с substance_id равным переданному значению
     PLSBL_Ts = PLSBL_T.objects.filter(substance=substance_id)
-    return render(request, 't-prop/plsbl_t_table.html', {'PLSBL_Ts': PLSBL_Ts})
+    header = 'Свойства жидкого вещества на линии кипения (по температурам)'
+    return render(request, 't-prop/plsbl_t_table.html', {'PLSBL_Ts': PLSBL_Ts, 'header':header})
+
+#Таблица x.2 Свойства парообразного вещества на линии конденсации (по температурам)
+def PVSCL_T_table(request, substance_id):
+	# В таблице отбираем значения с substance_id равным переданному значению
+    PVSCL_Ts = PVSCL_T.objects.filter(substance=substance_id)
+    header = 'Свойства парообразного вещества на линии конденсации (по температурам)'
+    return render(request, 't-prop/pvscl_t_table.html', {'PVSCL_Ts': PVSCL_Ts, 'header':header})
+
+#Таблица x.3 Свойства парообразного вещества на линии кипения (по давлениям)
+def PLSBL_P_table(request, substance_id):
+	# В таблице отбираем значения с substance_id равным переданному значению
+    PLSBL_Ps = PLSBL_P.objects.filter(substance=substance_id)
+    header = 'Свойства парообразного вещества на линии кипения (по давлениям)'
+    return render(request, 't-prop/plsbl_p_table.html', {'PLSBL_Ps': PLSBL_Ps, 'header':header})
+
+#Таблица x.4 Свойства парообразного вещества на линии конденсации (по давлениям)
+def PVSCL_P_table(request, substance_id):
+	# В таблице отбираем значения с substance_id равным переданному значению
+    PVSCL_Ps = PVSCL_P.objects.filter(substance=substance_id)
+    header = 'Свойства парообразного вещества на линии конденсации (по давлениям)'
+    return render(request, 't-prop/pvscl_p_table.html', {'PVSCL_Ps': PVSCL_Ps, 'header':header})
 
 #Таблица x.5 Теплофоизические и переносные свойства веществ в однофазной области
 def TPPSPR_table(request, substance_id):
 	# В таблице отбираем значения с substance_id равным переданному значению
     TPPSPRs = TPPSPR.objects.filter(substance=substance_id)
-    return render(request, 't-prop/tppsprs_table.html', {'TPPSPRs': TPPSPRs})
+    substance = Substance.objects.get(pk=substance_id)
+    p = [0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9,
+    1.0, 2.0, 3.0, 4.0, 5.0, 6.0, 7.0, 8.0, 9.0, 10.0,
+    12.0, 14.0, 15.0, 16.0, 17.0, 18.0, 19.0, 20.0]
+    header = 'Теплофоизические и переносные свойства '+substance.name+'а'+' в однофазной области'
+    return render(request, 't-prop/tppsprs_table.html', {'TPPSPRs': TPPSPRs, 'header':header, 'p':p, 'substance':substance})
+
+#Таблица x.5 Теплофоизические и переносные свойства веществ в однофазной области с фильтром
+def TPPSPR_table_pressure(request, substance_id, pressure):
+	# В таблице отбираем значения с substance_id равным переданному значению
+    TPPSPRs = TPPSPR.objects.filter(substance=substance_id, pressure=pressure)
+    substance = Substance.objects.get(pk=substance_id)
+    p = [0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9,
+    1.0, 2.0, 3.0, 4.0, 5.0, 6.0, 7.0, 8.0, 9.0, 10.0,
+    12.0, 14.0, 15.0, 16.0, 17.0, 18.0, 19.0, 20.0]
+    header = 'Теплофоизические и переносные свойства '+substance.name+'а'+' в однофазной области при давлении '+pressure+'МПа'
+    return render(request, 't-prop/tppsprs_table.html', {'TPPSPRs': TPPSPRs, 'header':header, 'substance':substance, 'p':p })

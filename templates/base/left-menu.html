@@ -44,13 +44,32 @@
                         </li> -->
                         <li class="nav-item ">
                             <a href="{% url 'PLSBL_T_table' 1 %}" class="nav-link ">
-                                <span class="title">Свойства на линии кипения (по температурам)
+                                <span class="title">Свойства жидкого вещества на линии кипения (по температурам)
+                                </span>
+                            </a>
+                        </li>
+                        <li class="nav-item ">
+                            <a href="{% url 'PVSCL_T_table' 1 %}" class="nav-link ">
+                                <span class="title">Свойства парообразного вещества на линии конденсации (по температурам)
+                                </span>
+                            </a>
+                        </li>
+                        <li class="nav-item ">
+                            <a href="{% url 'PLSBL_P_table' 1 %}" class="nav-link ">
+                                <span class="title">Свойства парообразного вещества на линии кипения (по давлениям)
+                                </span>
+                            </a>
+                        </li>
+                        <li class="nav-item ">
+                            <a href="{% url 'PVSCL_P_table' 1 %}" class="nav-link ">
+                                <span class="title">Свойства парообразного вещества на линии конденсации (по давлениям)
                                 </span>
                             </a>
                         </li>
                         <li class="nav-item ">
                             <a href="{% url 'TPPSPR_table' 1 %}" class="nav-link ">
-                                <span class="title">Свойства в однофазной области</span>
+                                <span class="title">Теплофоизические и переносные свойства веществ в однофазной области
+                                </span>
                             </a>
                         </li>
                     </ul>

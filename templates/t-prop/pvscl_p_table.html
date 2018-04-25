@@ -24,24 +24,22 @@
                                     <th>Давление</th>
                                     <th>Плотность</th>
                                     <th>Энтальпия</th>
-                                    <th>Теплота испарения</th>
                                     <th>Энтропия</th>
                                     <th>Динамическая вязкость</th>
                                     <th>Теплопроводность</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                {% for PLSBL_P in PLSBL_Ps %}
+                                {% for PVSCL_T in PVSCL_Ts %}
                                 <tr>
-                                    <td>{{ PLSBL_P.substance.name }}</td>
-                                    <td>{{ PLSBL_P.temperature }}</td>
-                                    <td>{{ PLSBL_P.pressure }}</td>
-                                    <td>{{ PLSBL_P.density }}</td>
-                                    <td>{{ PLSBL_P.enthalpy }}</td>
-                                    <td>{{ PLSBL_P.HEBP }}</td>
-                                    <td>{{ PLSBL_P.entropy }}</td>
-                                    <td>{{ PLSBL_P.DV }}</td>
-                                    <td>{{ PLSBL_P.TC }}</td>
+                                    <td>{{ PVSCL_T.substance.name }}</td>
+                                    <td>{{ PVSCL_T.temperature }}</td>
+                                    <td>{{ PVSCL_T.pressure }}</td>
+                                    <td>{{ PVSCL_T.density }}</td>
+                                    <td>{{ PVSCL_T.enthalpy }}</td>
+                                    <td>{{ PVSCL_T.entropy }}</td>
+                                    <td>{{ PVSCL_T.DV }}</td>
+                                    <td>{{ PVSCL_T.TC }}</td>
                                 </tr>
                                 {% endfor %}
                             </tbody>
