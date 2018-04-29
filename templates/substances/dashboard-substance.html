@@ -1,20 +1,32 @@
 {% extends 'base/base.html' %}
 {% load staticfiles %}
 {% block content %}
-<div class="page-bar">
+<div class="page-bar" style="margin-bottom: 0px;">
     <div class="page-title-breadcrumb">
         <div class=" pull-left">
-            <div class="page-title">{{ substance.name }}</div>
+            <div class="page-title">Свойства вещества {{ substance.name }}</div>
         </div>
         <ol class="breadcrumb page-breadcrumb pull-right">
             <li><i class="fa fa-home"></i>&nbsp;<a class="parent-item" href="{% url 'main_page' %}">Главная</a>&nbsp;<i class="fa fa-angle-right"></i>
             </li>
-            <li class="active">{{ substance.name }}</li>
+            <li class="active">Свойства {{ substance.name }}а</li>
         </ol>
     </div>
 </div>
 <!-- start widget -->
 <div class="state-overview">
+	<div class="row">
+        <div class="col-md-12 col-sm-12 col-12">
+			<div class="card card-box" style="margin-top: 0px;">
+                <div class="card-head">
+                  <header>{{ substance.name }}</header>
+              	</div>
+              	<div class="card-body no-padding height-9" style="color: black;">
+          			Информация
+				</div>
+            </div>
+        </div>
+    </div>
 		<div class="row">
 	        <div class="col-xl-6 col-md-6 col-12">
 	          <div class="info-box bg-b-green">
@@ -52,38 +64,85 @@
 	          <!-- /.info-box -->
 	        </div>
 	        <!-- /.col -->
-	        <!-- <div class="col-xl-6 col-md-6 col-12">
-	          <div class="info-box bg-b-blue">
-	            <span class="info-box-icon push-bottom"><i class="material-icons">school</i></span>
-	            <div class="info-box-content">
-	              <span class="info-box-text">Total Course</span>
-	              <span class="info-box-number">52</span>
-	              <div class="progress">
-	                <div class="progress-bar" style="width: 85%"></div>
-	              </div>
-	              <span class="progress-description">
-	                    85% Increase in 28 Days
-	                  </span>
-	            </div>
-	          </div>
-	        </div> -->
-	        <!-- /.col -->
-	        <!-- <div class="col-xl-6 col-md-6 col-12">
-	          <div class="info-box bg-b-pink">
-	            <span class="info-box-icon push-bottom"><i class="material-icons">monetization_on</i></span>
-	            <div class="info-box-content">
-	              <span class="info-box-text">Fees Collection</span>
-	              <span class="info-box-number">13,921</span><span>$</span>
-	              <div class="progress">
-	                <div class="progress-bar" style="width: 50%"></div>
-	              </div>
-	              <span class="progress-description">
-	                    50% Increase in 28 Days
-	                  </span>
-	            </div>
-	          </div>
-	        </div> -->
-	        <!-- /.col -->
+	        {% for BPCG in BPCGs%}
+		        <div class="col-xl-4 col-md-6 col-12">
+		          <div class="info-box bg-b-blue">
+		            <span class="info-box-icon push-bottom"><i class="material-icons">gradient</i></span>
+		            <div class="info-box-content">
+		              <span class="info-box-text">Атомная или молекулярная масса</span>
+		              <span class="info-box-number">{{ BPCG.molecular_mass }}</span>
+		              <span class="progress-description">
+		                    кг/моль
+		                  </span>
+		            </div>
+		          </div>
+		        </div>
+
+		        <div class="col-xl-4 col-md-6 col-12">
+		          <div class="info-box bg-b-pink">
+		            <span class="info-box-icon push-bottom"><i class="material-icons">grain</i></span>
+		            <div class="info-box-content">
+		              <span class="info-box-text">Плотность при T=273К</span>
+		              <span class="info-box-number">{{ BPCG.density }}</span>
+		              <span class="progress-description">
+		                    кг/м.куб
+		                  </span>
+		            </div>
+		          </div>
+		        </div>
+
+		        <div class="col-xl-4 col-md-6 col-12">
+		          <div class="info-box bg-b-green">
+		            <span class="info-box-icon push-bottom"><i class="material-icons">exposure</i></span>
+		            <div class="info-box-content">
+		              <span class="info-box-text">Критическая температура</span>
+		              <span class="info-box-number">{{ BPCG.critical_temperature }}</span>
+		              <span class="progress-description">
+		                    К
+		                  </span>
+		            </div>
+		          </div>
+		        </div>
+
+		        <div class="col-xl-4 col-md-6 col-12">
+		          <div class="info-box bg-b-yellow">
+		            <span class="info-box-icon push-bottom"><i class="material-icons">flare</i></span>
+		            <div class="info-box-content">
+		              <span class="info-box-text">Критическое давление</span>
+		              <span class="info-box-number">{{ BPCG.critical_pressure }}</span>
+		              <span class="progress-description">
+		                    МПа
+		                  </span>
+		            </div>
+		          </div>
+		        </div>
+
+		        <div class="col-xl-4 col-md-6 col-12">
+		          <div class="info-box bg-b-blue">
+		            <span class="info-box-icon push-bottom"><i class="material-icons">leak_add</i></span>
+		            <div class="info-box-content">
+		              <span class="info-box-text">Плотность</span>
+		              <span class="info-box-number">{{ BPCG.critical_density }}</span>
+		              <span class="progress-description">
+		                    кг/м.куб
+		                  </span>
+		            </div>
+		          </div>
+		        </div>
+
+		        <div class="col-xl-4 col-md-6 col-12">
+		          <div class="info-box bg-b-pink">
+		            <span class="info-box-icon push-bottom"><i class="material-icons">image_aspect_ratio</i></span>
+		            <div class="info-box-content">
+		              <span class="info-box-text">Температура тройной точки</span>
+		              <span class="info-box-number">{{ BPCG.triple_point_temperature }}</span>
+		              <span class="progress-description">
+		                    К
+		                  </span>
+		            </div>
+		          </div>
+		        </div>
+	        {% endfor %}
 	      </div>
 	</div>
 <!-- end widget -->

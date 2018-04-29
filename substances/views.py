@@ -2,6 +2,7 @@ from django.shortcuts import render, redirect
 from django.utils import timezone
 from .models import *
 from thermophysical_properties.models import *
+from physical_properties.models import *
 from decimal import Decimal
 # from django.views.generic.edit import FormView
 # from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
@@ -28,7 +29,7 @@ def substances_table(request):
 
 def dashboard_substance(request, substance_id):
     substance = Substance.objects.get(pk=substance_id)
-    
+    BPCGs = BPCG.objects.filter(substance=substance_id)
     #Таблица x.5 Теплофоизические и переносные свойства веществ в однофазной области
     pressure = '0.10'
     TPPSPRs = TPPSPR.objects.filter(substance=substance_id, pressure=pressure)
