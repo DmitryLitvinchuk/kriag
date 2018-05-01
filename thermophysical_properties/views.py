@@ -69,20 +69,24 @@ def TPPSPR_table_pressure(request, substance_id, pressure):
     TPPSPR_title = 'Теплофоизические и переносные свойства '+substance.name+'а'+' в однофазной области при давлении '+pressure+'МПа'
     return render(request, 't-prop/tppsprs.html', locals())
 
-def TPPSPR_in_point_create(request):
-    #substance = Substance.objects.get(pk=substance_id)
+def TPPSPR_in_point_create(request, substance_id):
+    substance = Substance.objects.get(pk=substance_id)
+    title = 'Расчет теплофизических и переносных свойств для '+substance.name+'а'
+    block_header = 'Введите расчетные значения'
+    input_1_placeholder = '315'
+    input_2_placeholder = '0.6'
     return render(request, 't-prop/TPPSPR_in_point_create.html', locals())
 
 
 #Таблица x.5 Теплофоизические и переносные свойства веществ в однофазной области с фильтром
-def TPPSPR_in_point(request):
+def TPPSPR_in_point(request, substance_id):
     # В таблице отбираем значения с substance_id равным переданному значению
     t = request.GET['temperature']
     t = Decimal(t)
     pressure = request.GET['pressure']
     pressure = Decimal(pressure)
     # Находим объекты с совпадающими значениями вещества
-    TPPSPRs = TPPSPR.objects.filter(substance=1, pressure=pressure)
+    TPPSPRs = TPPSPR.objects.filter(substance=substance_id, pressure=pressure)
     # Перебираем элементы массива
     for point in TPPSPRs:
         # Если заданная температура равна или превышает заданное значение

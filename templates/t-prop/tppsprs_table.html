@@ -7,6 +7,13 @@
             <div class="card-body ">
                 <div class="row">
                     <div class="col-md-12">
+                        <a href="{% url 'TPPSPR_in_point_create' substance_id=substance.id %}" class="btn deepPink btn-outline btn-circle m-b-10">
+                            Калькулятор
+                        </a>
+                    </div>
+                </div>   
+                <div class="row">
+                    <div class="col-md-12">
                         {% for i in p %}
                             <a href="{% url 'TPPSPR_table_pressure' substance_id=substance.id pressure=i %}" class="btn blue-bgcolor btn-outline btn-circle m-b-10">{{ i }} МПа</a>
                         {% endfor %}

@@ -11,14 +11,14 @@ urlpatterns = [
     #Таблица x.4 Свойства парообразного вещества на линии конденсации (по давлениям)
     url(r'^PVSCL_P/(?P<substance_id>\d+)/$', views.PVSCL_P_table, name='PVSCL_P_table'),
 	#Таблица x.5 Теплофоизические и переносные свойства веществ в однофазной области
-    url(r'^TPPSPR/(?P<substance_id>\d+)/$', views.TPPSPR_table, name='TPPSPR_table'),
+    url(r'^tppspr/(?P<substance_id>\d+)/$', views.TPPSPR_table, name='TPPSPR_table'),
     #Таблица x.5 Теплофоизические и переносные свойства веществ в однофазной
     #			  области (с фильтром по давлению)
-    url(r'^TPPSPR/(?P<substance_id>\d+)/(?P<pressure>\d+\.\d)$',
+    url(r'^tppspr/(?P<substance_id>\d+)/(?P<pressure>\d+\.\d)$',
     	views.TPPSPR_table_pressure, name='TPPSPR_table_pressure'),
-    url(r'^TPPSPR/point/$',
+    url(r'^tppspr/(?P<substance_id>\d+)/point/$',
         views.TPPSPR_in_point_create, name='TPPSPR_in_point_create'),
-    url(r'^TPPSPR/point/search/$', views.TPPSPR_in_point, name='tppspr_in_point'),
+    url(r'^tppspr/(?P<substance_id>\d+)/point/search/$', views.TPPSPR_in_point, name='tppspr_in_point'),
     #url(r'^tppspr_in_point/(?P<substance_id>\d+)/(?P<pressure>\d+\.\d)/(?P<temperature>\d+)$', views.TPPSPR_in_point, name='tppspr_in_point'),
     # url(r'^accounts/register/$', views.RegisterFormView.as_view()),
     # url(r'^accounts/login/$', views.LoginFormView.as_view()),
