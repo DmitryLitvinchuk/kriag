@@ -2,11 +2,155 @@
 
 {% block content %}
 
+<div class="page-bar" style="margin-bottom: 0px;">
+    <div class="page-title-breadcrumb">
+        <div class=" pull-left">
+            <div class="page-title">{{ title }}</div>
+        </div>
+    </div>
+</div>
+
+<div class="row" style="color: white;">
+    <div class="col-xl-6 col-md-6 col-12">
+      <div class="info-box bg-b-green">
+        <span class="info-box-icon push-bottom"><i class="material-icons">blur_linear</i></span>
+        <div class="info-box-content">
+          <span class="info-box-text">Давление - p</span>
+          <span class="info-box-number">{{ T2_point.pressure }}</span>
+          <span class="progress-description">
+                МПа
+          </span>
+        </div>
+        <!-- /.info-box-content -->
+      </div>
+      <!-- /.info-box -->
+    </div>
+    <!-- /.col -->
+    <div class="col-xl-6 col-md-6 col-12">
+      <div class="info-box bg-b-yellow">
+        <span class="info-box-icon push-bottom"><i class="material-icons">cloud</i></span>
+        <div class="info-box-content">
+          <span class="info-box-text">Температура - T</span>
+          <span class="info-box-number">{{ t }}</span>
+          <span class="progress-description">
+                К
+          </span>
+        </div>
+        <!-- /.info-box-content -->
+      </div>
+      <!-- /.info-box -->
+    </div>
+    <!-- /.col -->
+        <div class="col-xl-4 col-md-6 col-12">
+          <div class="info-box bg-b-blue">
+            <span class="info-box-icon push-bottom"><i class="material-icons">gradient</i></span>
+            <div class="info-box-content">
+              <span class="info-box-text">Плотность - ρ</span>
+              <span class="info-box-number">{{ density }}</span>
+              <span class="progress-description">
+                    кг/м.куб.
+              </span>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-xl-4 col-md-6 col-12">
+          <div class="info-box bg-b-pink">
+            <span class="info-box-icon push-bottom"><i class="material-icons">filter_center_focus</i></span>
+            <div class="info-box-content">
+              <span class="info-box-text">Энтальпия - h</span>
+              <span class="info-box-number">{{ enthalpy }}</span>
+              <span class="progress-description">
+                    кДж/кг
+              </span>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-xl-4 col-md-6 col-12">
+          <div class="info-box bg-b-green">
+            <span class="info-box-icon push-bottom"><i class="material-icons"> flip</i></span>
+            <div class="info-box-content">
+              <span class="info-box-text">Энтропия - s</span>
+              <span class="info-box-number">{{ entropy }}</span>
+              <span class="progress-description">
+                    кДж/(кг·К)
+              </span>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-xl-4 col-md-6 col-12">
+          <div class="info-box bg-b-yellow">
+            <span class="info-box-icon push-bottom"><i class="material-icons">leak_remove</i></span>
+            <div class="info-box-content">
+              <span class="info-box-text">Динамическая вязкость - μ</span>
+              <span class="info-box-number">{{ DV }}</span>
+              <span class="progress-description">
+                Па·с·10^7
+              </span>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-xl-4 col-md-6 col-12">
+          <div class="info-box bg-b-green">
+            <span class="info-box-icon push-bottom"><i class="material-icons">straighten</i></span>
+            <div class="info-box-content">
+              <span class="info-box-text">Теплопроводность - λ</span>
+              <span class="info-box-number">{{ TC }}</span>
+              <span class="progress-description">
+                мВт/(м·К)
+              </span>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-xl-4 col-md-6 col-12">
+          <div class="info-box bg-b-blue">
+            <span class="info-box-icon push-bottom"><i class="material-icons">wb_iridescent</i></span>
+            <div class="info-box-content">
+              <span class="info-box-text">Изобарная теплоемкость - Cb</span>
+              <span class="info-box-number">{{ IbHC }}</span>
+              <span class="progress-description">
+                кДж/(кг·К)
+              </span>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-xl-4 col-md-6 col-12">
+          <div class="info-box bg-b-pink">
+            <span class="info-box-icon push-bottom"><i class="material-icons">wb_sunny</i></span>
+            <div class="info-box-content">
+              <span class="info-box-text">Изохорная теплоемкость - Cv</span>
+              <span class="info-box-number">{{ IhHC }}</span>
+              <span class="progress-description">
+                кДж/(кг·К)
+              </span>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-xl-4 col-md-6 col-12">
+          <div class="info-box bg-b-yellow">
+            <span class="info-box-icon push-bottom"><i class="material-icons">tonality</i></span>
+            <div class="info-box-content">
+              <span class="info-box-text">Критерий Прандтля - Pr</span>
+              <span class="info-box-number">{{ CP }}</span>
+              <span class="progress-description">
+                критерий подобия
+              </span>
+            </div>
+          </div>
+        </div>
+  </div>
+
     <div class="row">
         <div class="col-md-12 col-sm-12">
             <div class="card  card-box">
                 <div class="card-head">
-                    <header>Результат</header>
+                    <header>{{ title }}</header>
                 </div>
                 <div class="card-body ">
                   <div class="table-wrap">

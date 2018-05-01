@@ -80,6 +80,8 @@ def TPPSPR_in_point_create(request, substance_id):
 
 #Таблица x.5 Теплофоизические и переносные свойства веществ в однофазной области с фильтром
 def TPPSPR_in_point(request, substance_id):
+    substance = Substance.objects.get(pk=substance_id)
+    title = 'Результат расчета теплофизических и переносных свойств для '+substance.name+'а в однофазной области'
     # В таблице отбираем значения с substance_id равным переданному значению
     t = request.GET['temperature']
     t = Decimal(t)
