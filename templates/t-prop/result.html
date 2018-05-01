@@ -1,0 +1,53 @@
+{% extends 'base/base.html' %}
+
+{% block content %}
+
+    <div class="row">
+        <div class="col-md-12 col-sm-12">
+            <div class="card  card-box">
+                <div class="card-head">
+                    <header>Результат</header>
+                </div>
+                <div class="card-body ">
+                  <div class="table-wrap">
+						<div class="table-responsive">
+							<table class="table display product-overview mb-30" id="support_table">
+                            <thead>
+                                <tr>
+                                    <th>Вещество</th>
+                                    <th>Давление</th>
+                                    <th>Температура</th>
+                                    <th>Плотность</th>
+                                    <th>Энтальпия</th>
+                                    <th>Энтропия</th>
+                                    <th>Динамическая вязкость</th>
+                                    <th>Теплопроводность</th>
+                                    <th>Изобарная теплоемкость</th>
+                                    <th>Изохорная теплоемкость</th>
+                                    <th>Критерий Прандтля</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>{{ T2_point.substance.name }}</td>
+                                    <td>{{ T2_point.pressure }}</td>
+                                    <td>{{ temperature }}</td>
+                                    <td>{{ density }}</td>
+                                    <td>{{ enthalpy }}</td>
+                                    <td>{{ entropy }}</td>
+                                    <td>{{ DV }}</td>
+                                    <td>{{ TC }}</td>
+                                    <td>{{ IbHC }}</td>
+                                    <td>{{ IhHC }}</td>
+                                    <td>{{ CP }}</td>
+                                </tr>
+                            </tbody>
+                        </table>
+						</div>
+					</div>	
+                </div>
+            </div>
+        </div>
+    </div>
+    
+{% endblock %}

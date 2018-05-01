@@ -2,6 +2,8 @@ from django.shortcuts import render, redirect
 from django.utils import timezone
 from .models import *
 from decimal import Decimal
+from django.db.models import Q
+from django.http import HttpResponse
 # from django.views.generic.edit import FormView
 # from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 # from django.http import HttpResponseRedirect
@@ -66,3 +68,71 @@ def TPPSPR_table_pressure(request, substance_id, pressure):
     12.0, 14.0, 15.0, 16.0, 17.0, 18.0, 19.0, 20.0]
     TPPSPR_title = 'Теплофоизические и переносные свойства '+substance.name+'а'+' в однофазной области при давлении '+pressure+'МПа'
     return render(request, 't-prop/tppsprs.html', locals())
+
+def TPPSPR_in_point_create(request):
+    #substance = Substance.objects.get(pk=substance_id)
+    return render(request, 't-prop/TPPSPR_in_point_create.html', locals())
+
+
+#Таблица x.5 Теплофоизические и переносные свойства веществ в однофазной области с фильтром
+def TPPSPR_in_point(request):
+    # В таблице отбираем значения с substance_id равным переданному значению
+    t = request.GET['temperature']
+    t = Decimal(t)
+    pressure = request.GET['pressure']
+    pressure = Decimal(pressure)
+    # Находим объекты с совпадающими значениями вещества
+    TPPSPRs = TPPSPR.objects.filter(substance=1, pressure=pressure)
+    # Перебираем элементы массива
+    for point in TPPSPRs:
+        # Если заданная температура равна или превышает заданное значение
+        if point.temperature >= t:
+            # Присваиваем id
+            s = int(point.id)
+            # Останавливаем перебор значений
+            break
+    # Получаем элемент по id
+    T2_point = TPPSPR.objects.get(pk=s)
+    # Находим предыдущий элемент
+    m = s-1
+    # Получаем этот элемент
+    T1_point = TPPSPR.objects.get(pk=m)
+    # Присваиваем температуру первой точке
+    t1 = Decimal(T1_point.temperature)
+    # Второй точке
+    t2 = Decimal(T2_point.temperature)
+    # Повторяем это же с другим элементом
+    p1 = Decimal(T1_point.density)
+    p2 = Decimal(T2_point.density)
+    # находим искомое значение
+    density = p1+((p2-p1)/(t2-t1))*(t-t1)
+    # Энтальпия
+    e1 = Decimal(T1_point.enthalpy)
+    e2 = Decimal(T2_point.enthalpy)
+    enthalpy = e1+((e2-e1)/(t2-t1))*(t-t1)
+    # s - Энтропия, кДж/(кг*К)
+    en1 = Decimal(T1_point.entropy)
+    en2 = Decimal(T2_point.entropy)
+    entropy = en1+((en2-en1)/(t2-t1))*(t-t1)
+    # Cp - Изобарная теплоемкость, кДж/(кг*К) (Isobaric heat capacity)
+    ih1 = Decimal(T1_point.IhHC)
+    ih2 = Decimal(T2_point.IhHC)
+    IhHC = ih1+((ih2-ih1)/(t2-t1))*(t-t1)
+    # Cv - Изохорная теплоемкость, кДж/(кг*К) (Isochonic heat capacity)
+    ib1 = Decimal(T1_point.IbHC)
+    ib2 = Decimal(T2_point.IbHC)
+    IbHC = ib1+((ib2-ib1)/(t2-t1))*(t-t1)
+    # λ - Теплопроводность, мВт/(м*К) (Thermal conductivity)    
+    tv1 = Decimal(T1_point.TC)
+    tv2 = Decimal(T2_point.TC)
+    TC = tv1+((tv2-tv1)/(t2-t1))*(t-t1)
+    # μ - Динамическая вязкость, Па*с*10^7 (Dynamic viscosity)
+    dv1 = Decimal(T1_point.DV)
+    dv2 = Decimal(T2_point.DV)
+    DV = dv1+((dv2-dv1)/(t2-t1))*(t-t1)
+    # Pr - Критерий Прандтля (Criterion of Prandtl)
+    cp1 = Decimal(T1_point.CP)
+    cp2 = Decimal(T2_point.CP)
+    CP = cp1+((cp2-cp1)/(t2-t1))*(t-t1)
+    # TPPSPR_title = 'Теплофоизические и переносные свойства '+substance.name+'а'+' в однофазной области при давлении '+pressure+'МПа'
+    return render(request, 't-prop/result.html', locals())

@@ -16,7 +16,10 @@ urlpatterns = [
     #			  области (с фильтром по давлению)
     url(r'^TPPSPR/(?P<substance_id>\d+)/(?P<pressure>\d+\.\d)$',
     	views.TPPSPR_table_pressure, name='TPPSPR_table_pressure'),
-
+    url(r'^TPPSPR/point/$',
+        views.TPPSPR_in_point_create, name='TPPSPR_in_point_create'),
+    url(r'^TPPSPR/point/search/$', views.TPPSPR_in_point, name='tppspr_in_point'),
+    #url(r'^tppspr_in_point/(?P<substance_id>\d+)/(?P<pressure>\d+\.\d)/(?P<temperature>\d+)$', views.TPPSPR_in_point, name='tppspr_in_point'),
     # url(r'^accounts/register/$', views.RegisterFormView.as_view()),
     # url(r'^accounts/login/$', views.LoginFormView.as_view()),
     # url(r'^accounts/logout/$', views.LogoutView.as_view()),
