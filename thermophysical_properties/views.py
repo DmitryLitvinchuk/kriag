@@ -4,6 +4,8 @@ from .models import *
 from decimal import Decimal
 from django.db.models import Q
 from django.http import HttpResponse
+from django.http import HttpResponseRedirect
+from django.contrib import messages
 # from django.views.generic.edit import FormView
 # from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 # from django.http import HttpResponseRedirect
@@ -73,8 +75,26 @@ def TPPSPR_in_point_create(request, substance_id):
     substance = Substance.objects.get(pk=substance_id)
     title = 'Расчет теплофизических и переносных свойств для '+substance.name+'а'
     block_header = 'Введите расчетные значения'
-    input_1_placeholder = '315'
-    input_2_placeholder = '0.6'
+    TPPSPRs = TPPSPR.objects.filter(substance=substance_id)
+    TPPSPRs_first = TPPSPRs.first()
+    TPPSPRs_last = TPPSPRs.last()
+    input_1_min = TPPSPRs_first.temperature
+    input_1_max = TPPSPRs_last.temperature
+    input_1_info = 'Доступные значения: '+str(input_1_min)+'-'+str(input_1_max)
+    input_1_placeholder = input_1_min
+    # Все доступные значения давлений
+    p = []
+    for i in TPPSPRs:
+        if i.pressure not in p:
+            p.append(i.pressure)
+    # Соединяем их
+    pressures = ', '.join(str(i) for i in p)
+    # Добавляем в отображение
+    input_2_info = 'Доступные значения: '+pressures
+    input_2_placeholder = '0.5'
+    info_box_1 = 'Введите значения параметров и нажмите Enter.'
+    info_box_2 = 'Сейчас доступен диапазон температур: '+str(input_1_min)+'-'+str(input_1_max)+'К'
+    info_box_3 = 'Cо значениями давлений (МПа): '+pressures
     return render(request, 't-prop/TPPSPR_in_point_create.html', locals())
 
 
@@ -87,7 +107,18 @@ def TPPSPR_in_point(request, substance_id):
     t = Decimal(t)
     pressure = request.GET['pressure']
     pressure = Decimal(pressure)
-    # Находим объекты с совпадающими значениями вещества
+    # Находим минимальный объект вещества
+    TPPSPRs = TPPSPR.objects.filter(substance=substance_id)
+    TPPSPRs_first = TPPSPRs.first()
+    if t < TPPSPRs_first.temperature:
+        return HttpResponseRedirect(request.META.get('HTTP_REFERER', '/'))
+    p = [0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9,
+    1.0, 2.0, 3.0, 4.0, 5.0, 6.0, 7.0, 8.0, 9.0, 10.0,
+    12.0, 14.0, 15.0, 16.0, 17.0, 18.0, 19.0, 20.0]
+    try:
+        TPPSPRs = TPPSPR.objects.filter(substance=substance_id, pressure=pressure).first().get()
+    except:
+        return HttpResponseRedirect(request.META.get('HTTP_REFERER', '/'))
     TPPSPRs = TPPSPR.objects.filter(substance=substance_id, pressure=pressure)
     # Перебираем элементы массива
     for point in TPPSPRs:
