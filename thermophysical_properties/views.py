@@ -54,9 +54,13 @@ def TPPSPR_table(request, substance_id):
 	# В таблице отбираем значения с substance_id равным переданному значению
     TPPSPRs = TPPSPR.objects.filter(substance=substance_id)
     substance = Substance.objects.get(pk=substance_id)
-    p = [0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9,
-    1.0, 2.0, 3.0, 4.0, 5.0, 6.0, 7.0, 8.0, 9.0, 10.0,
-    12.0, 14.0, 15.0, 16.0, 17.0, 18.0, 19.0, 20.0]
+    p = []
+    for i in TPPSPRs:
+        if i.pressure not in p:
+            p.append(i.pressure)
+    # p = [0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9,
+    # 1.0, 2.0, 3.0, 4.0, 5.0, 6.0, 7.0, 8.0, 9.0, 10.0,
+    # 12.0, 14.0, 15.0, 16.0, 17.0, 18.0, 19.0, 20.0]
     TPPSPR_title = 'Теплофоизические и переносные свойства '+substance.name+'а'+' в однофазной области'
     return render(request, 't-prop/tppsprs.html', locals())
 
@@ -109,16 +113,26 @@ def TPPSPR_in_point(request, substance_id):
     pressure = Decimal(pressure)
     # Находим минимальный объект вещества
     TPPSPRs = TPPSPR.objects.filter(substance=substance_id)
+    # Получаем его
     TPPSPRs_first = TPPSPRs.first()
+    # Сравниваем значение температуры
     if t < TPPSPRs_first.temperature:
         return HttpResponseRedirect(request.META.get('HTTP_REFERER', '/'))
-    p = [0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9,
-    1.0, 2.0, 3.0, 4.0, 5.0, 6.0, 7.0, 8.0, 9.0, 10.0,
-    12.0, 14.0, 15.0, 16.0, 17.0, 18.0, 19.0, 20.0]
-    try:
-        TPPSPRs = TPPSPR.objects.filter(substance=substance_id, pressure=pressure).first().get()
-    except:
-        return HttpResponseRedirect(request.META.get('HTTP_REFERER', '/'))
+    # Создаем пустой список
+    p = []
+    # Добавляем элементы со значениями давления
+    for i in TPPSPRs:
+        if i.pressure not in p:
+            p.append(i.pressure)
+    # Проверяем причастность введенного давления с допустимыми
+    for i in p:
+        if pressure not in p:
+            return HttpResponseRedirect(request.META.get('HTTP_REFERER', '/'))
+    # try:
+    #     TPPSPRs = TPPSPR.objects.filter(substance=substance_id, pressure=pressure).get()
+    # except:
+    #     return HttpResponseRedirect(request.META.get('HTTP_REFERER', '/'))
+
     TPPSPRs = TPPSPR.objects.filter(substance=substance_id, pressure=pressure)
     # Перебираем элементы массива
     for point in TPPSPRs:
