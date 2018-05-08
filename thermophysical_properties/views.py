@@ -54,10 +54,12 @@ def TPPSPR_table(request, substance_id):
 	# В таблице отбираем значения с substance_id равным переданному значению
     TPPSPRs = TPPSPR.objects.filter(substance=substance_id)
     substance = Substance.objects.get(pk=substance_id)
+    # Все доступные значения давлений
     p = []
     for i in TPPSPRs:
-        if i.pressure not in p:
-            p.append(i.pressure)
+        if float(i.pressure) not in p:
+            press = float(i.pressure)
+            p.append(press)
     # p = [0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9,
     # 1.0, 2.0, 3.0, 4.0, 5.0, 6.0, 7.0, 8.0, 9.0, 10.0,
     # 12.0, 14.0, 15.0, 16.0, 17.0, 18.0, 19.0, 20.0]
@@ -66,12 +68,17 @@ def TPPSPR_table(request, substance_id):
 
 #Таблица x.5 Теплофоизические и переносные свойства веществ в однофазной области с фильтром
 def TPPSPR_table_pressure(request, substance_id, pressure):
+    # В таблице отбираем значения с substance_id равным переданному значению
+    TPPSPRs = TPPSPR.objects.filter(substance=substance_id)
+    # Все доступные значения давлений
+    p = []
+    for i in TPPSPRs:
+        if float(i.pressure) not in p:
+            press = float(i.pressure)
+            p.append(press)
 	# В таблице отбираем значения с substance_id равным переданному значению
     TPPSPRs = TPPSPR.objects.filter(substance=substance_id, pressure=pressure)
     substance = Substance.objects.get(pk=substance_id)
-    p = [0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9,
-    1.0, 2.0, 3.0, 4.0, 5.0, 6.0, 7.0, 8.0, 9.0, 10.0,
-    12.0, 14.0, 15.0, 16.0, 17.0, 18.0, 19.0, 20.0]
     TPPSPR_title = 'Теплофоизические и переносные свойства '+substance.name+'а'+' в однофазной области при давлении '+pressure+'МПа'
     return render(request, 't-prop/tppsprs.html', locals())
 
@@ -89,8 +96,9 @@ def TPPSPR_in_point_create(request, substance_id):
     # Все доступные значения давлений
     p = []
     for i in TPPSPRs:
-        if i.pressure not in p:
-            p.append(i.pressure)
+        if float(i.pressure) not in p:
+            press = float(i.pressure)
+            p.append(press)
     # Соединяем их
     pressures = ', '.join(str(i) for i in p)
     # Добавляем в отображение

@@ -30,12 +30,19 @@ def substances_table(request):
 def dashboard_substance(request, substance_id):
     substance = Substance.objects.get(pk=substance_id)
     BPCGs = BPCG.objects.filter(substance=substance_id)
+    infos = Info.objects.filter(substance=substance_id)
     #Таблица x.5 Теплофоизические и переносные свойства веществ в однофазной области
+    TPPSPRs = TPPSPR.objects.filter(substance=substance_id)
+    # Все доступные значения давлений
+    p = []
+    for i in TPPSPRs:
+        if float(i.pressure) not in p:
+            press = float(i.pressure)
+            p.append(press)
     pressure = '0.10'
+    #Таблица x.5 Теплофоизические и переносные свойства веществ в однофазной области
     TPPSPRs = TPPSPR.objects.filter(substance=substance_id, pressure=pressure)
-    p = [0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9,
-    1.0, 2.0, 3.0, 4.0, 5.0, 6.0, 7.0, 8.0, 9.0, 10.0,
-    12.0, 14.0, 15.0, 16.0, 17.0, 18.0, 19.0, 20.0]
+    # Название блока
     TPPSPR_title = 'Теплофоизические и переносные свойства '+substance.name+'а'+' в однофазной области при 0,1 МПа'
     #Таблица x.1 Свойства жидкого вещества на линии кипения (по температурам)
     PLSBL_Ts = PLSBL_T.objects.filter(substance=substance_id)

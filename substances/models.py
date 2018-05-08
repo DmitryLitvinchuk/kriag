@@ -17,3 +17,19 @@ class Substance(models.Model):
     class Meta:
         verbose_name = 'Вещество'
         verbose_name_plural = 'Вещества'
+
+#Информация о веществе
+class Info(models.Model):
+	# Вещество
+    substance = models.ForeignKey(Substance, on_delete=models.CASCADE)
+    # Название
+    title = models.CharField(max_length=30)
+    # Описание
+    body = models.TextField(blank=True, null=True)
+
+    def __str__(self):
+        return "%s %s" % (self.substance.name, self.title)
+
+    class Meta:
+        verbose_name = 'Информация о веществе'
+        verbose_name_plural = 'Информация о веществах'

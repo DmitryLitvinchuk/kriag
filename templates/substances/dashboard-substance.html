@@ -16,16 +16,18 @@
 <!-- start widget -->
 <div class="state-overview">
 	<div class="row">
+		{% for info in infos %}
         <div class="col-md-12 col-sm-12 col-12">
 			<div class="card card-box" style="margin-top: 0px;">
-                <div class="card-head">
-                  <header>{{ substance.name }}</header>
-              	</div>
-              	<div class="card-body no-padding height-9" style="color: black;">
-          			Информация
-				</div>
+	                <div class="card-head">
+	                  <header>{{ info.title }}</header>
+	              	</div>
+	              	<div class="card-body no-padding height-9" style="color: black;">
+	          			{{ info.body }}
+					</div>
             </div>
         </div>
+        {% endfor %}
     </div>
 		<div class="row">
 	        <div class="col-xl-6 col-md-6 col-12">
