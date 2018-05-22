@@ -1,5 +1,7 @@
 {% extends 'base/base.html' %}
 
+{% load static %}
+
 {% block content %}
 <!-- start new student list -->
 <div class="row">
@@ -14,7 +16,13 @@
                 </div>
             </div>
             <div class="card-body ">
-              <h3>Это приложение представляет собой комплекс по расчету свойств криопродуктов</h3>
+              <div class="row">
+                <div class="col-sm-12 col-md-3">
+                    <img class="img-responsive m-t-20" src="http://www.ifmo.ru/file/news/4246/itmo_small_white_rus.jpg">
+                </div>
+                <div class="col-sm-12 col-md-9">
+                    <h3>Программный комплекс по расчету теплофизических свойств криопродуктов, разработанный на <a href="http://www.ifmo.ru/ru/viewdepartment/93/kafedra_kriogennoy_tehniki_i_tehnologiy_szhizhennogo_prirodnogo_gaza.htm">Кафедре криогенной техники и технологий сжиженного природного газа</a> в <a href="http://www.ifmo.ru/ru/">Университете ИТМО</a></h3>
+                </div>
             </div>
         </div>
     </div>
